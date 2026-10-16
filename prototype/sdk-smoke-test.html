@@ -1,0 +1,53 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>魔珐星云 SDK 最小验证</title>
+    <style>
+      :root{font-family:Inter,"Microsoft YaHei",sans-serif;color:#2b2926;background:#f5f1eb}
+      *{box-sizing:border-box}body{margin:0}.page{max-width:980px;margin:0 auto;padding:28px 18px 48px}.header{display:flex;justify-content:space-between;gap:18px;align-items:flex-start;margin-bottom:20px}.header h1{margin:0;font:400 30px Georgia,"Songti SC",serif}.header p{margin:8px 0 0;color:#817a72;font-size:13px;line-height:1.7}.badge{border:1px solid #dfcfc3;border-radius:99px;padding:8px 11px;color:#7d5847;background:#fffaf5;font-size:11px;white-space:nowrap}.layout{display:grid;grid-template-columns:minmax(260px,405px) 1fr;gap:18px;align-items:start}.card{border:1px solid #e7dfd6;border-radius:16px;background:#fffdfa;box-shadow:0 12px 30px #5b49380d}.avatar-card{padding:14px}.avatar{width:100%;aspect-ratio:9/16;min-height:430px;overflow:hidden;border-radius:11px;background:#1b1b1b}.toolbar{display:flex;flex-wrap:wrap;gap:8px;margin-top:12px}.toolbar button,.form button{border:1px solid #e0d5ca;border-radius:9px;padding:10px 12px;background:#fff;color:#6e5648;font-size:12px;cursor:pointer}.toolbar button.primary,.form button.primary{border-color:#8d5e4a;background:#8d5e4a;color:#fff}.toolbar button:disabled{cursor:not-allowed;opacity:.5}.panel{padding:18px}.panel h2{margin:0 0 13px;font-size:16px;font-weight:600}.form{display:grid;gap:10px}.form label{display:grid;gap:6px;color:#766e65;font-size:11px}.form input{width:100%;border:1px solid #e4dbd2;border-radius:8px;padding:11px;background:#fff;color:#332f2b;font:inherit}.form small{color:#9b9288;line-height:1.6}.log{height:285px;overflow:auto;border:1px solid #eee6de;border-radius:10px;padding:10px;background:#fbf8f4;color:#726a62;font:11px/1.7 ui-monospace,Consolas,monospace;white-space:pre-wrap}.status{margin-top:12px;padding:10px;border-radius:9px;background:#f7efe8;color:#815943;font-size:12px;line-height:1.6}.warning{margin-top:14px;color:#8c5f4b;font-size:11px;line-height:1.7}@media(max-width:720px){.page{padding:18px 12px 34px}.header{display:block}.badge{display:inline-block;margin-top:12px}.layout{grid-template-columns:1fr}.avatar{min-height:0}.panel{padding:15px}}
+      .transcript-box{margin-top:15px;padding:12px;border:1px solid #eadfd5;border-radius:10px;background:#fffaf6}.transcript-title{display:flex;justify-content:space-between;gap:8px;align-items:center;color:#6e5a4d;font-size:11px}.transcript-title span{color:#a08370;font-size:10px}.transcript-box textarea{width:100%;margin-top:8px;resize:vertical;border:1px solid #e4dbd2;border-radius:8px;padding:10px;background:#fff;color:#332f2b;font:12px/1.6 "Microsoft YaHei",sans-serif}.transcript-actions{display:flex;justify-content:flex-end;gap:8px;margin-top:8px}.transcript-actions button{border:1px solid #e0d5ca;border-radius:8px;padding:8px 10px;background:#fff;color:#6e5648;font-size:11px;cursor:pointer}.transcript-actions button.primary{border-color:#8d5e4a;background:#8d5e4a;color:#fff}.transcript-actions button:disabled{opacity:.5;cursor:not-allowed}
+    </style>
+  </head>
+  <body>
+    <main class="page">
+      <header class="header">
+        <div><h1>魔珐星云 SDK 最小验证</h1><p>只验证真实数字人的加载、文本播报、麦克风识别和客户端打断。通过后再接回衣见如故主界面。</p></div>
+        <span class="badge">独立验证页 · 不影响主原型</span>
+      </header>
+      <section class="layout">
+        <div class="card avatar-card">
+          <div class="avatar" id="agent-avatar"></div>
+          <div class="toolbar">
+            <button id="ask-btn" class="primary" disabled>发文本</button>
+            <button id="start-asr-btn" disabled>开始识别</button>
+            <button id="stop-asr-btn" disabled>停止识别</button>
+            <button id="interrupt-btn" disabled>打断播报</button>
+            <button id="destroy-btn" disabled>销毁会话</button>
+          </div>
+          <div class="transcript-box">
+            <div class="transcript-title"><strong>识别文本（业务端确认后发送）</strong><span id="asr-state">未开始</span></div>
+            <textarea id="transcript" rows="4" placeholder="点击“开始识别”后说话，识别结果会显示在这里；不会自动触发数字人回答。"></textarea>
+            <div class="transcript-actions"><button id="clear-transcript-btn" type="button">清空</button><button id="send-transcript-btn" class="primary" type="button" disabled>发送给数字人</button></div>
+          </div>
+        </div>
+        <div class="card panel">
+          <h2>1. 填写开发者凭证</h2>
+          <div class="form">
+            <label>App ID<input id="app-id" autocomplete="off" placeholder="从魔珐星云应用中心复制" /></label>
+            <label>App Secret<input id="app-secret" type="password" autocomplete="off" placeholder="只在当前页面内存中使用" /></label>
+            <button id="init-btn" class="primary">初始化数字人</button>
+            <small>凭证不会写入项目文件。验证结束后刷新页面即可清除输入内容。SDK 要求页面运行在 localhost 或 HTTPS。</small>
+          </div>
+          <div class="status" id="status">等待填写凭证。初始化成功后，左侧按钮会变为可用。</div>
+          <h2 style="margin-top:22px">2. 事件日志</h2>
+          <pre class="log" id="log">尚未开始。</pre>
+          <p class="warning">注意：不要把真实 App Secret 提交到 Git 或公开仓库。正式部署时应按官方安全建议配置服务端代理或受保护的运行环境。</p>
+        </div>
+      </section>
+    </main>
+    <script src="https://media.xingyun3d.com/xingyun3d/general/litesdk/xmovAvatar_e2e@latest.js"></script>
+    <script src="sdk-smoke-test.js"></script>
+  </body>
+</html>

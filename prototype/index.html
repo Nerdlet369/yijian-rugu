@@ -1,0 +1,96 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="theme-color" content="#f7f4ee" />
+    <title>衣见如故 · 面试穿搭私人导购</title>
+    <link rel="stylesheet" href="styles.css" />
+    <link rel="stylesheet" href="chat.css" />
+    <style>
+      .text-interrupt-button{height:38px;border:1px solid #d9b5a2;border-radius:10px;background:#fbf0e8;padding:0 10px;color:#805541;font-size:11px;cursor:pointer}
+      .text-interrupt-button:hover{background:#f3ded0}
+      .text-interrupt-button:disabled{opacity:.45;cursor:not-allowed}
+    </style>
+  </head>
+  <body>
+    <main class="chat-app">
+      <header class="chat-topbar">
+        <a class="chat-brand" href="#" aria-label="衣见如故首页"><span class="brand-symbol">衣</span><span>衣见如故<small>面试穿搭私人导购</small></span></a>
+        <div class="chat-store"><i></i>云杉商场 · 3F 女装区</div>
+        <div class="chat-topbar-actions">
+          <span class="sdk-chip" id="sdkStatus">数字人未连接</span>
+          <button class="chat-reset" id="sdkSetupButton" type="button">连接数字人</button>
+          <button class="chat-reset" id="resetButton" type="button">重新开始</button>
+        </div>
+      </header>
+
+      <section class="chat-layout">
+        <aside class="avatar-stage" id="avatarStage" aria-label="数字人小衣">
+          <div class="avatar-glow"></div>
+          <div class="avatar-person" id="avatarFallback"><span class="avatar-hair"></span><span class="avatar-face"><i></i><b></b><em></em></span><span class="avatar-body"></span></div>
+          <div class="real-avatar" id="agent-avatar" aria-label="真实数字人"></div>
+          <div class="avatar-caption"><strong>小衣</strong><span><i></i><b id="avatarStatus">在这里陪你逛</b></span></div>
+          <div class="stage-note">像朋友一样，给你真诚的穿搭建议</div>
+        </aside>
+
+        <section class="conversation-panel">
+          <div class="conversation-heading"><div><div class="eyebrow">YOUR PERSONAL STYLING FRIEND</div><h1>慢慢逛，我陪你</h1></div><span class="privacy-chip">照片仅用于本次交流</span></div>
+          <div class="chat-scroll" id="chatScroll" aria-live="polite">
+            <div class="chat-date">今天 · 云杉商场</div>
+            <article class="message assistant-message"><div class="message-avatar">衣</div><div class="message-content"><span class="message-name">小衣</span><p>欢迎来逛～你可以先自己看看；想让我帮你挑面试穿搭，也可以直接告诉我岗位、预算或你喜欢的感觉。我按你的节奏来。</p><div class="suggestion-row"><button class="suggestion-chip" data-message="我先自己逛逛">我先自己逛逛</button><button class="suggestion-chip" data-message="我下周有面试，帮我看看">帮我挑一套面试穿搭</button></div></div></article>
+          </div>
+          <div class="composer-wrap">
+            <div class="mode-row" role="tablist" aria-label="选择交流方式">
+              <button class="mode-tab" id="voiceModeButton" type="button" role="tab" aria-selected="false">语音陪逛</button>
+              <button class="mode-tab active" id="textModeButton" type="button" role="tab" aria-selected="true">文字输入</button>
+              <span class="mode-status" id="modeStatus">文字模式 · 麦克风未开启</span>
+            </div>
+            <div class="composer-hint" id="composerHint">随时可以问我，也可以把看中的衣服拍给我</div>
+            <div class="photo-draft" id="photoDraft" hidden>
+              <img id="photoPreview" alt="待发送照片预览" />
+              <div class="photo-draft-copy">
+                <strong>照片还没有发送</strong>
+                <span>选图后先预览，不会自动上传。你可以附上文字发送，也可以只发照片；单独发图不会触发回复，之后再说话或打字提问。</span>
+              </div>
+              <button class="photo-draft-remove" id="removePhotoButton" type="button" aria-label="移除待发送照片" title="移除照片">×</button>
+              <button class="photo-draft-send" id="sendPhotoOnlyButton" type="button" title="发送照片，不触发自动回复">只发照片</button>
+            </div>
+            <div class="composer" role="group" aria-label="发送消息或图片">
+              <input type="file" id="cameraInput" accept="image/*" capture="environment" />
+              <input type="file" id="albumInput" accept="image/*" />
+              <button class="media-button camera-action" id="cameraButton" type="button" title="拍照" aria-label="拍照"><span class="camera-glyph">⌁</span><small>拍照</small></button>
+              <button class="media-button album-action" id="albumButton" type="button" title="从相册选择" aria-label="从相册选择"><span class="album-glyph">▧</span><small>相册</small></button>
+              <div class="text-controls" id="textControls">
+                <input class="message-input" id="messageInput" placeholder="说说你的想法，或问我这件衣服怎么样…" autocomplete="off" />
+                <button class="dictation-button" id="dictationButton" type="button" title="语音转文字" aria-label="语音转文字">🎙</button>
+                <button class="text-interrupt-button" id="textInterruptButton" type="button" title="打断数字人播报" aria-label="打断数字人播报" disabled>打断</button>
+                <button class="send-button" id="sendButton" type="button" aria-label="发送">发送</button>
+              </div>
+              <div class="voice-controls" id="voiceControls" hidden>
+                <span class="listening-pulse" aria-hidden="true"><i></i><i></i><i></i></span>
+                <span class="voice-prompt" id="voicePrompt">语音陪逛演示 · 语音功能尚未接入</span>
+                <button class="interrupt-button" id="interruptButton" type="button">模拟插话</button>
+              </div>
+            </div>
+            <div class="demo-disclaimer" id="demoDisclaimer">拍照与相册随时可用 · 当前使用网页演示模式；连接数字人后将启用真实播报、识别和打断</div>
+          </div>
+        </section>
+      </section>
+    </main>
+    <dialog class="sdk-dialog" id="sdkDialog">
+      <form method="dialog" class="sdk-dialog-card" id="sdkForm">
+        <button class="sdk-dialog-close" value="cancel" aria-label="关闭">×</button>
+        <div class="eyebrow">REAL AVATAR CONNECTION</div>
+        <h2>连接魔珐数字人</h2>
+        <p>只在当前页面内使用凭证，不会写入项目文件。连接成功后，左侧示意形象会替换为真实数字人。</p>
+        <label>App ID<input id="sdkAppId" autocomplete="off" placeholder="从魔珐星云应用中心复制" /></label>
+        <label>App Secret<input id="sdkAppSecret" type="password" autocomplete="off" placeholder="不要提交到代码仓库" /></label>
+        <div class="sdk-dialog-actions"><button class="chat-reset" value="cancel">稍后连接</button><button class="sdk-connect" id="sdkConnectButton" value="default">初始化</button></div>
+        <div class="sdk-dialog-message" id="sdkDialogMessage"></div>
+      </form>
+    </dialog>
+    <script src="https://media.xingyun3d.com/xingyun3d/general/litesdk/xmovAvatar_e2e@latest.js"></script>
+    <script src="app.js"></script>
+  </body>
+</html>

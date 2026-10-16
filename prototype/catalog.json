@@ -1,0 +1,91 @@
+{
+  "version": 2,
+  "demo": true,
+  "source": "用户提供的服装参考照片；仅用于界面演示，不代表实际门店 SKU、品牌、价格、尺码、库存或货架位置",
+  "products": [
+    {
+      "id": "photo-navy-stand-collar-blazer",
+      "name": "藏青立领西装外套（参考图）",
+      "type": "外套参考",
+      "color": "藏青色",
+      "price": null,
+      "location": "待接入门店商品与货架数据",
+      "fit": "图片展示为立领、偏正式的西装外套；具体版型与尺码需现场确认",
+      "scene": "可作为偏正式面试穿搭参考，需结合实际单品和整套搭配判断",
+      "pairing": "可尝试搭配简洁浅色内搭与深色下装；需试穿确认",
+      "visual": "照片中是一件藏青色立领西装外套，展示在衣架/模特架上",
+      "image": "./assets/products/navy-stand-collar-blazer.jpeg",
+      "gradient": "linear-gradient(145deg,#263b54,#101b2a)"
+    },
+    {
+      "id": "photo-burgundy-cardigan-look",
+      "name": "酒红针织开衫搭配（参考图）",
+      "type": "整套穿搭参考",
+      "color": "酒红、黑色",
+      "price": null,
+      "location": "待接入门店商品与货架数据",
+      "fit": "照片为上身自拍；具体材质、版型和尺码无法仅凭图片确认",
+      "scene": "更偏日常或轻松沟通场合；正式程度弱于成套西装",
+      "pairing": "可参考深色下装；若用于面试，可换成更利落的下装和简洁鞋包",
+      "visual": "照片展示酒红色针织开衫与黑色下装的搭配",
+      "image": "./assets/products/burgundy-cardigan-look.jpg",
+      "gradient": "linear-gradient(145deg,#7f273c,#28252a)"
+    },
+    {
+      "id": "photo-light-blue-shirt-denim-skirt",
+      "name": "浅蓝衬衫与牛仔裙（参考拼图）",
+      "type": "搭配参考",
+      "color": "浅蓝、牛仔蓝",
+      "price": null,
+      "location": "待接入门店商品与货架数据",
+      "fit": "拼图含单品及搭配示意；细节、材质和尺码需进一步确认",
+      "scene": "偏休闲日常；传统正式面试可能显得不够正式",
+      "pairing": "若想提升正式感，可将牛仔裙换为简洁的深色西裤或半裙",
+      "visual": "拼图展示浅蓝衬衫、牛仔裙及配饰等穿搭元素",
+      "image": "./assets/products/light-blue-shirt-denim-skirt-collage.jpeg",
+      "gradient": "linear-gradient(145deg,#b9d4df,#527d9a)"
+    },
+    {
+      "id": "photo-blue-ruffle-maxi-dress",
+      "name": "浅蓝荷叶边长裙（参考图）",
+      "type": "连衣裙参考",
+      "color": "浅蓝色",
+      "price": null,
+      "location": "待接入门店商品与货架数据",
+      "fit": "户外全身照；实际面料、剪裁与穿着效果需试穿确认",
+      "scene": "偏轻柔、休闲或约会风格；不作为传统产品经理面试的首选",
+      "pairing": "可搭配简洁低跟鞋和小型配饰，避免信息过多",
+      "visual": "照片中模特穿着浅蓝色荷叶边长裙，背景为户外场景",
+      "image": "./assets/products/blue-ruffle-dress.jpg",
+      "gradient": "linear-gradient(145deg,#bed9e6,#6f9aad)"
+    },
+    {
+      "id": "photo-basketball-graphic-tee",
+      "name": "白色篮球图案 T 恤（参考图）",
+      "type": "T 恤参考",
+      "color": "白色、彩色图案",
+      "price": null,
+      "location": "待接入门店商品与货架数据",
+      "fit": "图片可见正面印花；材质、尺码和品牌信息未核实",
+      "scene": "偏运动休闲，不适合传统正式面试场合",
+      "pairing": "适合日常休闲穿搭；面试建议换成无明显大图案的上衣",
+      "visual": "白色 T 恤胸前带有 San Antonio Basketball 字样和图案",
+      "image": "./assets/products/basketball-graphic-tee.jpeg",
+      "gradient": "linear-gradient(145deg,#f7f5ed,#c9c5b9)"
+    },
+    {
+      "id": "photo-sailor-collar-uniform",
+      "name": "海军领套装（参考拼图）",
+      "type": "套装参考",
+      "color": "藏青、白色",
+      "price": null,
+      "location": "待接入门店商品与货架数据",
+      "fit": "拼图含多张穿着/展示图及文字标识；具体商品信息未核实",
+      "scene": "偏制服或主题穿搭，不适合作为常规求职面试推荐",
+      "pairing": "若用于日常搭配，应以实际套装内容和穿着场合为准",
+      "visual": "拼图展示带海军领元素的藏青白色套装，并含文字/标识",
+      "image": "./assets/products/sailor-collar-uniform-collage.jpg",
+      "gradient": "linear-gradient(145deg,#263f60,#dce4eb)"
+    }
+  ]
+}
