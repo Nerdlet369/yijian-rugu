@@ -1,0 +1,110 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8" />
+<title>衣见如故 · 作品介绍（评审版）</title>
+<style>
+  :root{ --ink:#1f2430; --sub:#5b6472; --line:#e3e6ec; --accent:#7a3b1d; --accent2:#2f6f5e; --soft:#f6f3ee; }
+  *{box-sizing:border-box}
+  body{ font-family:"PingFang SC","Microsoft YaHei",system-ui,sans-serif; color:var(--ink); margin:0; background:#eee; }
+  .page{ max-width:820px; margin:24px auto; background:#fff; padding:48px 56px; box-shadow:0 2px 18px rgba(0,0,0,.12); }
+  h1{ font-size:26px; margin:0 0 4px; letter-spacing:.5px }
+  .tagline{ color:var(--sub); font-size:14px; margin-bottom:18px }
+  .meta{ font-size:12.5px; color:var(--sub); border-top:1px solid var(--line); border-bottom:1px solid var(--line); padding:10px 0; margin-bottom:22px; display:flex; flex-wrap:wrap; gap:6px 22px }
+  h2{ font-size:18px; margin:26px 0 10px; padding-left:10px; border-left:4px solid var(--accent); }
+  h3{ font-size:14.5px; margin:16px 0 6px; color:var(--accent2) }
+  p,li{ font-size:13.5px; line-height:1.85; color:#2c3340 }
+  ul{ margin:6px 0 6px 0; padding-left:20px }
+  .weight{ display:inline-block; font-size:11.5px; font-weight:700; color:#fff; background:var(--accent); border-radius:4px; padding:1px 8px; margin-right:8px; vertical-align:middle }
+  .card{ background:var(--soft); border:1px solid var(--line); border-radius:10px; padding:12px 16px; margin:12px 0 }
+  .score{ float:right; font-size:12px; color:var(--sub) }
+  .table{ width:100%; border-collapse:collapse; font-size:12.5px; margin:8px 0 }
+  .table th,.table td{ border:1px solid var(--line); padding:7px 9px; text-align:left; vertical-align:top }
+  .table th{ background:var(--soft); color:var(--sub); font-weight:600 }
+  .foot{ margin-top:30px; border-top:1px solid var(--line); padding-top:12px; font-size:11.5px; color:var(--sub) }
+  @media print{ body{background:#fff} .page{box-shadow:none; margin:0; max-width:none; padding:24px 28px} }
+</style>
+</head>
+<body>
+<div class="page">
+  <h1>衣见如故 · 面试穿搭私人数字导购</h1>
+  <div class="tagline">基于具身数字人的面试穿搭「陪伴式决策」原型 · 第四届开放原子大赛参赛作品</div>
+  <div class="meta">
+    <span>参赛赛道：开源基础软件与解决方案（赛道一）</span>
+    <span>作者：陈倡名</span>
+    <span>单位：电子科技大学成都学院</span>
+    <span>开源协议：MIT</span>
+    <span>仓库：github.com/Nerdlet369/yijian-rugu</span>
+  </div>
+
+  <h2>一、项目简介</h2>
+  <p>「衣见如故」面向独自逛商场、希望获得可信审美意见的求职者，用一位体贴、坦诚的具身数字人“小衣”，把模糊的“想穿得专业一点”转化为可执行的筛选条件，并在用户犹豫时提供情绪支持、在试穿后给出有边界的穿搭评价，最终落地为带货架位置的购买清单。项目不是给商品目录加一个数字人，而是让数字人承担“需要交流、解释、鼓励和把握分寸”的那段决策过程。</p>
+  <p>技术形态：移动 Web 前端 + 视觉分析服务 + 本地兜底导购引擎。数字人形象与语音由魔珐星云 SDK 提供；本项目自研重点是<strong>导购决策、评价边界控制，以及「无云端也能复现主流程」的本地引擎</strong>，而非重建数字人。</p>
+
+  <h2>二、评审维度说明（按官方权重组织）</h2>
+
+  <h3><span class="weight">30%</span>技术创新<span class="score">评审权重 30%</span></h3>
+  <div class="card">
+    <ul>
+      <li><strong>有边界的视觉评价体系（自研）：</strong>服务端调用视觉模型后，系统化约束输出——不评价身材/年龄/健康，不编造摘要未提及的五官、品牌、价格；用 <code>delighted/thoughtful</code> 反应枚举避免无意义惊叹；显式提示照片光线、角度的局限。这是负责任 AI 的具体落地。</li>
+      <li><strong>鲁棒的视觉分析管线（自研）：</strong>手写平衡括号 JSON 解析器防中转截断；当 endpoint 不支持 JSON mode 时自动降级到 prompt-only；处理拒答与“输出不完整”结果；对输入体积、文本长度、请求超时做边界限制。</li>
+      <li><strong>本地兜底导购引擎（自研，零依赖）：</strong>推荐 / 库存 / 清单算法与 DOM 解耦，依据预算、风格、排除色、尺码自动筛选 2-3 套搭配，缺货时自动替换为同风格有货款，并生成带货架位置的购买清单。无需任何外部密钥即可运行，破解“必须云端才能演示”的落地短板。</li>
+      <li><strong>朋友式交互原则的可执行化（自研）：</strong>把“先理解再建议、说明依据、允许犹豫、给替代方案、不为了成交而无条件夸赞”落成系统提示词与前端状态机。</li>
+      <li><strong>零第三方运行依赖：</strong>视觉服务仅用 Node 内置模块，前端为原生 JS 无框架，降低供应链与合规风险。</li>
+    </ul>
+  </div>
+  <p class="score">说明：数字人形象与语音依赖魔珐星云 SDK；本项目刻意不重建数字人，而是聚焦其上层的导购智能与边界控制，避免“简单拼接现成工具”的减分项。</p>
+
+  <h3><span class="weight">30%</span>场景落地<span class="score">评审权重 30%</span></h3>
+  <div class="card">
+    <ul>
+      <li><strong>真实痛点：</strong>应届生/初入职场者独自选购面试装，缺乏可信审美意见与决策陪伴。</li>
+      <li><strong>可部署、可运行、可测试：</strong>提供 <code>docker compose</code> 与 <code>node server.js</code> 两种启动方式；README 给出从克隆到复现主流程的完整步骤；并附 <code>node --test</code> 单测（视觉解析 + 推荐引擎）。</li>
+      <li><strong>真实能力而非伪造：</strong>试穿分析走真实视觉模型（非固定播放）；商品目录为结构化模拟数据（25 件商品 / 8 套搭配 / 价格 / 尺码库存 / 货架位置 / 风格标签），规模达到 MVP 规范。</li>
+      <li><li><strong>隐私优先：</strong>照片仅用于本次会话、默认不长期保存；自由浏览模式不强制采集任何个人信息；明确标注模拟数据，不把演示库存描述为真实门店。</li>
+    </ul>
+  </div>
+
+  <h3><span class="weight">20%</span>开源治理<span class="score">评审权重 20%</span></h3>
+  <div class="card">
+    <ul>
+      <li><strong>协议合规：</strong>采用 MIT 协议（OSI 兼容）。</li>
+      <li><strong>依赖合规：</strong>服务端零第三方包、前端无框架，依赖风险极低。</li>
+      <li><strong>安全：</strong>视觉 API Key 仅存于服务端环境变量 / 项目根 <code>.env</code>，绝不进入前端；<code>.env.example</code> 防误提交。</li>
+      <li><strong>文档规范：</strong>PROJECT_BRIEF（产品定位与边界）、MVP_SPEC（页面/状态机/工具接口/必测交互）、DEMO_SCRIPT（可运行流程与「不能现场宣称的功能」）三件套齐全。</li>
+      <li><strong>测试：</strong><code>server.test.js</code> 与 <code>recommendation.test.js</code> 覆盖解析、校验与推荐逻辑。</li>
+      <li><strong>待完善：</strong>社区 Issue/PR 响应机制尚处起步阶段，已规划开源协作流程。</li>
+    </ul>
+  </div>
+
+  <h3><span class="weight">20%</span>长期发展<span class="score">评审权重 20%</span></h3>
+  <div class="card">
+    <ul>
+      <li><strong>架构可演进：</strong>推荐/库存/清单引擎与渲染层解耦，便于单测与复用；前端已预留魔珐云端与本地双后端切换。</li>
+      <li><strong>场景扩展：</strong>计划接入真实门店商品/库存/室内导航；扩展更多面试风格与身材友好推荐；把本地引擎升级为可插拔 Agent。</li>
+      <li><strong>组织支撑：</strong>依托学校开放原子开源社团（项目部），规划开源协作与贡献机制。</li>
+      <li><strong>参赛目标：</strong>以本原型验证“陪伴式决策”的产品价值，争取产业对接与持续打磨。</li>
+    </ul>
+  </div>
+
+  <h2>三、关键能力对照（MVP 必测项覆盖）</h2>
+  <table class="table">
+    <tr><th>能力</th><th>实现状态</th><th>说明</th></tr>
+    <tr><td>自由浏览不追问个人信息</td><td>已实现</td><td>选择“自己逛”不采集任何字段</td></tr>
+    <tr><td>按需采集场合/预算/尺码</td><td>已实现</td><td>状态机驱动，缺失字段才追问</td></tr>
+    <tr><td>按预算/风格变化推荐变化</td><td>已实现</td><td>本地引擎按预算升序、风格贴合排序</td></tr>
+    <tr><td>试穿照片有依据评价+替代建议</td><td>已实现</td><td>真实视觉模型 + 边界评价</td></tr>
+    <tr><td>缺货给替代款/位置</td><td>已实现</td><td>同风格有货款自动替换</td></tr>
+    <tr><td>生成预算内购买清单</td><td>已实现</td><td>含尺码/价格/货架/总价与超预算提示</td></tr>
+    <tr><td>真实门店库存/支付</td><td>未接入（演示）</td><td>范围外，文档已声明</td></tr>
+  </table>
+
+  <h2>四、如何复现</h2>
+  <p>1) 克隆仓库；2)（可选）复制 <code>.env.example</code> 为 <code>.env</code> 并填视觉模型 Key；3) 根目录 <code>node server.js</code>；4) 浏览器打开 <code>http://localhost:8081/</code>。<strong>即使不填任何密钥，也能直接进入本地兜底导购，跑通推荐→库存→清单闭环。</strong>若要真实数字人，点击“连接数字人”填魔珐 App ID/Secret。</p>
+
+  <div class="foot">
+    本作品介绍按第四届开放原子大赛评审四维度（技术创新 30% / 场景落地 30% / 开源治理 20% / 长期发展 20%）组织。商品、价格、库存、货架位置均为演示数据，不代表真实门店系统。
+  </div>
+</div>
+</body>
+</html>
